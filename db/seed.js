@@ -12,10 +12,11 @@ async function dropTables() {
 
 		// have to make sure to drop in correct order
 		await client.query(`
-      DROP TABLE IF EXISTS post_tags;
-      DROP TABLE IF EXISTS tags;
-      DROP TABLE IF EXISTS posts;
-      DROP TABLE IF EXISTS users;
+      
+      DROP TABLE IF EXISTS routineActivities;
+      DROP TABLE IF EXISTS activities;
+	  DROP TABLE IF EXISTS routines;
+	  DROP TABLE IF EXISTS users;
     `);
 
 		console.log("Finished dropping tables!");
