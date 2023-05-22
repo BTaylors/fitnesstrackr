@@ -69,7 +69,8 @@ async function createTables() {
 }
 
 async function populateTables() {
-	// Seed tables with dummy data from seedData.js
+	for (const user of users) {
+	}
 }
 
 async function rebuildDb() {
