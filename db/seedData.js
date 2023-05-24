@@ -20,8 +20,21 @@ const routines = [
 		name: "Exercise routine",
 		goal: "get huge",
 	},
+	{
+		creator_id: 2,
+		is_public: false,
+		name: "Pilates class",
+		goal: "get in shape",
+	},
+];
+const routine_activities = [
+	{
+		creator_id: 1,
+		is_public: false,
+		name: "Pilates",
+		goal: "get in shape",
+	},
 	{},
 ];
-const routine_activities = [];
 
 module.exports = { users, activities, routines, routine_activities };
