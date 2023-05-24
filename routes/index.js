@@ -1,4 +1,7 @@
 const router = require("express").Router();
+const activitiesRouter = require("./activities");
+const usersRouter = require("./users");
+const routinesRouter = require("./routines");
 
 router.get("/health", (req, res, next) => {
 	try {
@@ -11,5 +14,6 @@ router.get("/health", (req, res, next) => {
 // Hook up other Routers ex: router.use('/users', require('./users'))
 
 module.exports = router;
-const usersRouter = require("./users");
 router.use("/users", usersRouter);
+router.use("/activities", activitiesRouter);
+router.use("/routines", routinesRouter);
