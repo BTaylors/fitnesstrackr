@@ -69,7 +69,20 @@ async function createTables() {
 }
 
 async function populateTables() {
-	for (const user of users) {
+	console.log("populating initial tables");
+	try {
+		for (const user of users) {
+			await createUser(user);
+		}
+		console.log("users table populated");
+
+		console.log("populating activities table"); /////////
+		for (const activity of activities) {
+			await createActivity(activity);
+		}
+		console.log("activities table populated");
+	} catch (error) {
+		console.error(error);
 	}
 }
 
