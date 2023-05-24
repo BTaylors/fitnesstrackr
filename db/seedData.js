@@ -1,7 +1,7 @@
 // Create dummy data to seed into your DB
 const users = [
 	{ username: "Brandon", password: 1234 },
-	{ username: "Matt", password: 12345 },
+	{ username: "Mark", password: 12345 },
 	{ username: "Morty", password: 123456 },
 	{ username: "Pawan", password: 1234567 },
 	{ username: "Chris", password: 12345678 },
