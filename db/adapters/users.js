@@ -32,3 +32,5 @@ async function getUser() {
 		throw error;
 	}
 }
+
+module.exports = { createUser, getUser };
