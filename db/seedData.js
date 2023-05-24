@@ -27,9 +27,9 @@ const routines = [
 		goal: "get in shape",
 	},
 ];
-const routine_activities = [
+const routineActivities = [
 	{
-		creator_id: 1,
+		creator_id: 2,
 		is_public: false,
 		name: "Pilates",
 		goal: "get in shape",
@@ -37,4 +37,4 @@ const routine_activities = [
 	{},
 ];
 
-module.exports = { users, activities, routines, routine_activities };
+module.exports = { users, activities, routines, routineActivities };
