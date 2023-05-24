@@ -76,7 +76,7 @@ async function populateTables() {
 		}
 		console.log("users table populated");
 
-		console.log("populating activities table"); /////////
+		console.log("populating activities table");
 		for (const activity of activities) {
 			await createActivity(activity);
 		}
