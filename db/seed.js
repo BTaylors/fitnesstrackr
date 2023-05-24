@@ -1,4 +1,6 @@
 const client = require("./client");
+const { createUser } = require("./adapters/users");
+const { createActivity } = require("./adapters/activities");
 const {
 	users,
 	activities,
@@ -80,6 +82,9 @@ async function populateTables() {
 		for (const activity of activities) {
 			await createActivity(activity);
 		}
+		// for (const routine of routines) {
+		// 	await createRoutine(routine);
+		// }
 		console.log("activities table populated");
 	} catch (error) {
 		console.error(error);
