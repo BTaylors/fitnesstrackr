@@ -33,4 +33,11 @@ async function getUser() {
 	}
 }
 
-module.exports = { createUser, getUser };
+async function getAllUsers() {
+	const { rows } = await client.query(`
+    SELECT * FROM users;
+  `);
+	return rows;
+}
+
+module.exports = { createUser, getUser, getAllUsers };
