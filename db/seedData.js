@@ -80,7 +80,7 @@ const routineActivities = [
 		duration: 1,
 		count: 10,
 	},
-
+	{
 		routine_id: 1,
 		activity_id: 1,
 		duration: 1,
