@@ -29,12 +29,35 @@ const routines = [
 ];
 const routineActivities = [
 	{
-		creator_id: 2,
-		is_public: false,
-		name: "Pilates",
-		goal: "get in shape",
+		routine_id: 1,
+		activity_id: 1,
+		duration: 1,
+		count: 10,
 	},
-	{},
+	{
+		routine_id: 2,
+		activity_id: 2,
+		duration: 1,
+		count: 10,
+	},
+	{
+		routine_id: 3,
+		activity_id: 3,
+		duration: 1,
+		count: 10,
+	},
+	{
+		routine_id: 4,
+		activity_id: 4,
+		duration: 1,
+		count: 10,
+	},
+	{
+		routine_id: 5,
+		activity_id: 5,
+		duration: 1,
+		count: 10,
+	},
 ];
 
 module.exports = { users, activities, routines, routineActivities };
