@@ -10,7 +10,7 @@ authRouter.post("/register", async (req, res, next) => {
 		const user = await createUser({ username, password, hashedPassword });
 		delete user.password;
 
-		const token = jwt.sign(user, "wopalopagus");
+		const token = jwt.sign(user, "Brandon");
 
 		res.cookie("token", token, {
 			sameSite: `strict`,
@@ -38,7 +38,7 @@ authRouter.get("/logout", async (req, res, next) => {
 		});
 		res.send({
 			loggiedIn: false,
-			message: "Logged Out!",
+			message: "Logged out",
 		});
 	} catch (error) {
 		next(error);
