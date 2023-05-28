@@ -20,19 +20,6 @@ async function createUser({ username, password }) {
 	}
 }
 
-async function getUser() {
-	try {
-		const { rows } = await client.query(`
-      SELECT username,
-      FROM users;
-    `);
-
-		return rows;
-	} catch (error) {
-		throw error;
-	}
-}
-
 async function getAllUsers() {
 	const { rows } = await client.query(`
     SELECT * FROM users;
@@ -40,4 +27,43 @@ async function getAllUsers() {
 	return rows;
 }
 
-module.exports = { createUser, getUser, getAllUsers };
+async function getUserById(id) {
+	try {
+		const {
+			rows: [user],
+		} = await client.query(`
+      SELECT username
+      FROM users
+      WHERE id=${id}
+    `);
+
+		if (!user) {
+			return null;
+		}
+
+		return user;
+	} catch (error) {
+		throw error;
+	}
+}
+
+async function getUserByUsername(username) {
+	try {
+		const {
+			rows: [user],
+		} = await client.query(
+			`
+        SELECT *
+        FROM users
+        WHERE username=$1;
+      `,
+			[username]
+		);
+
+		return user;
+	} catch (error) {
+		throw error;
+	}
+}
+
+module.exports = { createUser, getAllUsers, getUserById, getUserByUsername };
