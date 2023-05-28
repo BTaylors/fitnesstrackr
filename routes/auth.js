@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
 const createUser = require("../db/adapters/users.js");
 
-// POST /api/auth/register
 authRouter.post("/register", async (req, res, next) => {
 	try {
 		const { username, password } = req.body;
