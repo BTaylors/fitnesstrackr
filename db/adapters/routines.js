@@ -49,7 +49,10 @@ async function getRoutineById(id) {
         JOIN activities 
         ON routineActivities.activity_id = activities.id
         WHERE routines.id = $1
+
         GROUP BY routines.id, routinesActivities.routine_id
+
+
   `,
 		[id]
 	);
@@ -103,7 +106,9 @@ async function getAllPublicRoutines() {
       FULL OUTER JOIN activities
       ON activities.id = routineActivities.activity_id
       WHERE routines.is_public = true
+
       GROUP BY routines.id, routinesActivities.routine_id
+
     `);
 		return rows;
 	} catch (error) {
