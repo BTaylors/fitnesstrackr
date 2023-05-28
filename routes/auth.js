@@ -1,9 +1,9 @@
 const authRouter = require("express").Router();
-
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
 const createUser = require("../db/adapters/users.js");
 
+// POST /api/auth/register
 authRouter.post("/register", async (req, res, next) => {
 	try {
 		const { username, password } = req.body;
@@ -44,14 +44,5 @@ authRouter.get("/logout", async (req, res, next) => {
 	} catch (error) {
 		next(error);
 	}
-=======
-
-authRouter.post("/signup", async (req, res, next) => {
-  try {
-    const { username, password } = req.body;
-  } catch (error) {
-    next(error);
-  }
 });
-
 module.exports = authRouter;
