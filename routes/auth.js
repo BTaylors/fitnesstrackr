@@ -10,7 +10,7 @@ authRouter.post("/register", async (req, res, next) => {
 		const user = await createUser({ username, password, hashedPassword });
 		delete user.password;
 
-		const token = jwt.sign(user, "Brandon");
+		const token = jwt.sign(user, "Gilgamesh");
 
 		res.cookie("token", token, {
 			sameSite: `strict`,
