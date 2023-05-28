@@ -5,8 +5,6 @@ const routinesRouter = require("./routines");
 const routineActivitiesRouter = require("./routine_activities");
 const authRouter = require("./auth.js");
 
-router.use("/routineactivities", routineActivitiesRouter);
-
 router.get("/health", (req, res, next) => {
 	try {
 		res.send("API is Healthy 😎!");
@@ -18,6 +16,7 @@ router.get("/health", (req, res, next) => {
 router.use("/users", usersRouter);
 router.use("/activities", activitiesRouter);
 router.use("/routines", routinesRouter);
+router.use("/routineactivities", routineActivitiesRouter);
 router.use("/auth", authRouter);
 
 module.exports = router;
