@@ -3,7 +3,7 @@ const client = require("../client");
 async function getRoutineActivityById(routineActivityId) {
 	const { rows } = await client.query(
 		`
-      SELECT * FROM routineActivities
+      SELECT * FROM routine_activities
       WHERE id = ${routineActivityId};
 
     `,
@@ -14,7 +14,7 @@ async function getRoutineActivityById(routineActivityId) {
 async function addActivityToRoutine(routine_id, activity_id, duration, count) {
 	const { rows } = await client.query(
 		`
-      INSERT INTO routineActivities(routine_id, activity_id, duration, count)
+      INSERT INTO routine_activities(routine_id, activity_id, duration, count)
       VALUES ($1, $2, $3, $4)
 
     `,

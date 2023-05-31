@@ -32,26 +32,25 @@ async function getRoutineById(id) {
       routines.id as id,
       routines.name as name,
       routines.goal as goal, 
-        CASE WHEN routineActivities.routine_id IS NULL THEN '[]'::json
+        CASE WHEN routine_activities.routine_id IS NULL THEN '[]'::json
         ELSE 
         JSON_AGG(
           JSON_BUILD_OBJECT(
           'id', activities.id,
           'name', activities.name,
           'description', activities.description,
-          'duration', routineActivities.duration,
-          'count', routineActivities.count
+          'duration', routine_activities.duration,
+          'count', routine_activities.count
           )
         ) END AS activities
         FROM routines
-        JOIN routineActivities 
-        ON routines.id = routineActivities.routine_id
+        JOIN routine_activities 
+        ON routines.id = routine_activities.routine_id
         JOIN activities 
-        ON routineActivities.activity_id = activities.id
+        ON routine_activities.activity_id = activities.id
         WHERE routines.id = $1
 
-        GROUP BY routines.id, routinesActivities.routine_id
-
+        GROUP BY routines.id, routines_activities.routine_id
 
   `,
 		[id]
@@ -88,26 +87,26 @@ async function getAllPublicRoutines() {
       routines.id as id,
       routines.name as name,
       routines.goal as goal,
-      CASE WHEN routineActivities.routine_id IS NULL THEN '[]'::json
+      CASE WHEN routine_activities.routine_id IS NULL THEN '[]'::json
       ELSE
       JSON_AGG(
         JSON_BUILD_OBJECT(
           'id', activities.id,
           'name', activities.name,
           'description', activities.description,
-          'duration', routineActivities.duration,
-          'count', routineActivities.count
+          'duration', routine_activities.duration,
+          'count', routine_activities.count
           
         )
       ) END AS activities
       FROM routines
-      FULL OUTER JOIN routineActivities 
-      ON routines.id = routineActivities.routine_id
+      FULL OUTER JOIN routine_activities 
+      ON routines.id = routine_activities.routine_id
       FULL OUTER JOIN activities
-      ON activities.id = routineActivities.activity_id
+      ON activities.id = routine_activities.activity_id
       WHERE routines.is_public = true
 
-      GROUP BY routines.id, routinesActivities.routine_id
+      GROUP BY routines.id, routines_activities.routine_id
 
     `);
 		return rows;
@@ -122,26 +121,26 @@ async function getPublicRoutinesByUser(username) {
       SELECT 
         routines.id as id
         routines.name as goal,
-        CASE WHEN routineActivities.routine_id IS NULL THEN '[]'::json
+        CASE WHEN routine_activities.routine_id IS NULL THEN '[]'::json
         ELSE 
         JSON_AGG(
           JSon_BUILD_OBJECT(
             'id', activities.id,
             'name', activities.name,
             'description', activities.description,
-            'duration', routineActivities.duration,
-            'count', routineActivities.count
+            'duration', routine_activities.duration,
+            'count', routine_activities.count
             )
           ) END AS activities
           FROM routines
           JOIN users
           ON routines.creator_id = users.id
-          FULL OUTER JOIN routinesActivities
-          ON routines.id = routineActivities.routine_id
+          FULL OUTER JOIN routines_activities
+          ON routines.id = routine_activities.routine_id
           FULL OUTER JOIN activities 
-          ON activities.id = routineActivities.activity_id
+          ON activities.id = routine_activities.activity_id
           WHERE users.username = $1 AND routines.is_public = true
-          GROUP BY routines.id, routinesActivities.routine_id
+          GROUP BY routines.id, routines_activities.routine_id
           `,
 			[username]
 		);
