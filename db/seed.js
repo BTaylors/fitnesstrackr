@@ -15,7 +15,7 @@ async function dropTables() {
 
 		// have to make sure to drop in correct order
 		await client.query(`
-      DROP TABLE IF EXISTS routineActivities;
+      DROP TABLE IF EXISTS routine_activities;
       DROP TABLE IF EXISTS activities;
       DROP TABLE IF EXISTS routines;
       DROP TABLE IF EXISTS users;
