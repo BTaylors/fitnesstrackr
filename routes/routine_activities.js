@@ -1,5 +1,5 @@
 const routinesActivitiesRouter = require("express").Router();
-const { getRoutineActivityById } = require("../db/adapters/routineActivities");
+const { getRoutineActivityById } = require("../db/adapters/routine_activities");
 
 routinesActivitiesRouter.get("/", async (req, res, next) => {
 	try {
