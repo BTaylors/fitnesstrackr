@@ -1,5 +1,5 @@
 const usersRouter = require("express").Router();
-const { getAllUsers, getUser } = require("../db/adapters/users");
+const { getAllUsers, getUserById } = require("../db/adapters/users");
 
 usersRouter.get("/", async (req, res, next) => {
 	try {
@@ -10,9 +10,10 @@ usersRouter.get("/", async (req, res, next) => {
 	}
 });
 
-usersRouter.get("/user", async (req, res, next) => {
+usersRouter.get("/:id", async (req, res, next) => {
+	const id = req.params.id;
 	try {
-		const user = await getUser();
+		const user = await getUserById(id);
 		res.send(user);
 	} catch (error) {
 		next(error);
