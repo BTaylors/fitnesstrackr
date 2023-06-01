@@ -19,4 +19,14 @@ usersRouter.get("/:id", async (req, res, next) => {
 		next(error);
 	}
 });
+
+usersRouter.get("/:username/routines", async (req, res, next) => {
+	try {
+		const publicRoutinesbyUser = await getPublicRoutinesByUser();
+		res.send({ publicRoutinesbyUser });
+	} catch (error) {
+		next(error);
+	}
+});
+
 module.exports = usersRouter;
