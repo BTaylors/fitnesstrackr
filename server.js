@@ -29,7 +29,7 @@ app.use((err, req, res, next) => {
 	});
 });
 
-app.get("/test", (req, res, next) => {
+app.get("/test", authRequired, (req, res, next) => {
 	res.send("You are authorized!");
 });
 
