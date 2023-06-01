@@ -20,10 +20,13 @@ async function createRoutine({ creator_id, is_public, name, goal }) {
 }
 async function getAllRoutines() {
 	const { rows } = await client.query(`
-    SELECT * FROM routines;
+    SELECT * FROM routines
+    INNER JOIN activities 
+    ON routines.id = activities.id;
   `);
 	return rows;
 }
+
 async function getRoutineById(id) {
 	console.log("hello");
 	const { rows } = await client.query(
@@ -57,9 +60,8 @@ async function getRoutineById(id) {
 	return rows;
 }
 async function getRoutinesWithoutActivities() {
-	const {
-		rows: [routine],
-	} = await client.query(`SELECT * FROM routines`);
+	const { rows } = await client.query(`SELECT * from routines`);
+	return rows;
 }
 async function getAllRoutinesByUser(userId) {
 	try {
@@ -146,6 +148,65 @@ async function getPublicRoutinesByUser(username) {
 	}
 }
 
+async function getPublicRoutinesByActivity(activityId) {
+	const { rows } = await client.query(
+		`
+    SELECT 
+    routines.id as id
+    routines.name as goal,
+    CASE WHEN routine_activities.activity_id IS NULL THEN '[]'::json
+    ELSE 
+    JSON_AGG(
+      JSon_BUILD_OBJECT(
+        'id', activities.id,
+        'name', activities.name,
+        'description', activities.description,
+        'duration', routine_activities.duration,
+        'count', routine_activities.count
+        )
+      ) END AS activities
+      FROM routines
+      JOIN users
+      ON routines.creator_id = users.id
+      FULL OUTER JOIN routines_activities
+      ON routines.id = routine_activities.routine_id
+      FULL OUTER JOIN activities 
+      ON activities.id = routine_activities.activity_id
+      WHERE routines.is_public = true
+      GROUP BY routines.id, routines_activities.routine_id
+      `,
+		[activityId]
+	);
+	console.log({ rows });
+	return rows;
+}
+async function updateRoutine(routineId, creator_id, is_public, name, goal) {
+	try {
+		const {
+			rows: [updatedRoutine],
+		} = await client.query(
+			`UPDATE routines
+      SET creator_id = $2, name = $4, goal = $5, is_public = $3
+      WHERE  id = $1
+    `,
+			[routineId, creator_id, is_public, name, goal]
+		);
+		return updatedRoutine;
+	} catch (error) {
+		throw error;
+	}
+}
+
+async function destroyRoutine(routineId) {
+	await client.query(
+		`DELETE from routines
+          WHERE id = $1
+          `,
+		[routineId]
+	);
+	return;
+}
+
 module.exports = {
 	createRoutine,
 	getAllRoutines,
@@ -154,4 +215,7 @@ module.exports = {
 	getAllPublicRoutines,
 	getPublicRoutinesByUser,
 	getAllRoutinesByUser,
+	getPublicRoutinesByActivity,
+	updateRoutine,
+	destroyRoutine,
 };
