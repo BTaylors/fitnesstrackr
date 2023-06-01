@@ -1,4 +1,5 @@
 const usersRouter = require("express").Router();
+const { getPublicRoutinesByUser } = require("../db/adapters/routines");
 const { getAllUsers, getUserById } = require("../db/adapters/users");
 
 usersRouter.get("/", async (req, res, next) => {
