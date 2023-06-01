@@ -25,10 +25,9 @@ app.get("/test", authRequired, (req, res, next) => {
 	res.send("You are authorized!");
 });
 
-// Add front end
-// app.use((req, res, next) => {
-// 	res.sendFile(path.join(__dirname, "./client/dist", "index.html"));
-// });
+app.use((req, res, next) => {
+	res.sendFile(path.join(__dirname, "./client/dist", "index.html"));
+});
 
 // Error Handler
 app.use((err, req, res, next) => {

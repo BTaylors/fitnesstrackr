@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SALT_ROUNDS = 10;
 const { createUser, getUserByUsername } = require("../db/adapters/users.js");
-const { authRequired } = require("./utlis");
+const { authRequired } = require("./utils");
 
 authRouter.post("/register", async (req, res, next) => {
 	try {
