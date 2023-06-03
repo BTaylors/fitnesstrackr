@@ -1,9 +1,11 @@
 const authRouter = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const SALT_ROUNDS = 10;
 const { createUser, getUserByUsername } = require("../db/adapters/users.js");
 const { authRequired } = require("./utils");
+const { JWT_SECRET } = process.env;
 
 authRouter.post("/register", async (req, res, next) => {
 	try {
