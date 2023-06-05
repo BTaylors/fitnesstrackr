@@ -79,3 +79,14 @@ export const userLogout = async (token) => {
 		console.error(err);
 	}
 };
+
+export const getActivities = async () => {
+	try {
+		const response = await fetch(`${BASE_URL}/activities`);
+		const result = await response.json();
+		console.log(result);
+		return result.data.activities;
+	} catch (error) {
+		console.error("ERROR");
+	}
+};
