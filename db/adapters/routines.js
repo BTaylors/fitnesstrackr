@@ -184,16 +184,17 @@ async function getPublicRoutinesByActivity(activityId) {
 	console.log({ rows });
 	return rows;
 }
-async function updateRoutine(routineId, creator_id, is_public, name, goal) {
+async function updateRoutine(routineId, is_public, name, goal) {
 	try {
 		const {
 			rows: [updatedRoutine],
 		} = await client.query(
 			`UPDATE routines
-      SET creator_id = $2, name = $4, goal = $5, is_public = $3
+      SET  name = $3, goal = $4, is_public = $2
       WHERE  id = $1
+      RETURNING *
     `,
-			[routineId, creator_id, is_public, name, goal]
+			[routineId, is_public, name, goal]
 		);
 		return updatedRoutine;
 	} catch (error) {
