@@ -1,29 +1,27 @@
-import { useState, useEffect } from "react";
-
 import "./App.css";
+import { useState, React } from "react";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/NavBar";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import useAuth from "./hooks/useAuth";
 
 function App() {
-	const [healthMessage, setHealthMessage] = useState(null);
-	const [error, setError] = useState(null);
-
-	useEffect(() => {
-		async function checkAPIHealth() {
-			try {
-				const response = await fetch("/api/health");
-				const result = await response.json();
-				setHealthMessage(result.message);
-			} catch (error) {
-				setError(error);
-			}
-		}
-		checkAPIHealth();
-	}, []);
-
+	const { token, user } = useAuth();
 	return (
-		<>
-			{error && <p>{JSON.stringify(error, null, 2)}</p>}
-			{healthMessage && <p>{healthMessage}</p>}
-		</>
+		<div className="App">
+			<Navbar />
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/Profile" element={<Profile />} />
+				<Route path="/CreatePost" element={<CreatePost />} />
+				<Route path="/Login" element={<Login />} />
+				<Route path="/Register" element={<Register />} />
+			</Routes>
+			<Footer />
+		</div>
 	);
 }
 

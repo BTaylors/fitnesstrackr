@@ -15,3 +15,67 @@ export const getToken = async (token) => {
 		console.error(error);
 	}
 };
+
+export async function registerUser(username, password) {
+	try {
+		const response = await fetch(`${BASE_URL}/users/register`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				user: {
+					username,
+					password,
+				},
+			}),
+		});
+		const result = await response.json();
+		console.log("Result from register user: ", result);
+		return result;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export const userLogin = async (username, password) => {
+	try {
+		const response = await fetch(`${BASE_URL}/users/login`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				user: {
+					username,
+					password,
+				},
+			}),
+		});
+		const result = await response.json();
+		console.log(result);
+		return result;
+	} catch (error) {
+		console.error(error);
+	}
+};
+export const userLogout = async (token) => {
+	try {
+		const response = await fetch(`${BASE_URL}/Login`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				user: {
+					token,
+				},
+			}),
+		});
+		const result = await response.json();
+		console.log(result);
+		return result;
+	} catch (err) {
+		console.error(err);
+	}
+};
