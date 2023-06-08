@@ -5,15 +5,13 @@ import { userLogin } from "../../api/helpers";
 export default function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const { token, setToken, user } = useAuth();
-
+	const { setloggedIn } = useAuth();
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
 			const result = await userLogin(username, password);
 			console.log("Result in component: ", result);
-			setToken(result.data.token);
-			localStorage.setItem("token", result.data.token);
+			setloggedIn(true);
 		} catch (error) {
 			console.error(error);
 		}

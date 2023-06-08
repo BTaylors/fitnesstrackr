@@ -1,7 +1,7 @@
 const activitiesRouter = require("express").Router();
 const { getAllActivities } = require("../db/adapters/activities");
 const { getPublicRoutinesByActivity } = require("../db/adapters/routines");
-
+const { authRequired } = require("./utils");
 activitiesRouter.get("/", async (req, res, next) => {
 	try {
 		const activities = await getAllActivities();
@@ -24,4 +24,13 @@ activitiesRouter.get("/:activityId/routines/", async (req, res, next) => {
 		next(error);
 	}
 });
+
+activitiesRouter.post("/create-activity", authRequired, (req, res, next) => {
+	try {
+		const { name, description } = req.body;
+	} catch (error) {
+		next(error);
+	}
+});
+
 module.exports = activitiesRouter;
