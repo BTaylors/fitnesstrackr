@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getActivities } from "../api/helpers";
 import "../App.css";
 import { useNavigate } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 export default function AllActivities() {
 	const nav = useNavigate();

@@ -95,7 +95,7 @@ export const getPosts = async () => {
 	}
 };
 
-export default async function getRoutines() {
+export async function getRoutines() {
 	try {
 		const response = await fetch(`api/routines`);
 		const result = await response.json();
@@ -105,6 +105,7 @@ export default async function getRoutines() {
 	}
 	getRoutines();
 }
+
 export const deletePost = async () => {
 	try {
 		const response = await fetch(`api/posts/`, {
@@ -120,3 +121,15 @@ export const deletePost = async () => {
 		console.error(error);
 	}
 };
+
+export async function checkAPIHealth() {
+	try {
+		const response = await fetch("/api/health");
+		const result = await response.json();
+		return result;
+	} catch (error) {
+		console.error(error);
+	}
+
+	checkAPIHealth();
+}

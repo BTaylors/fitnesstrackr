@@ -1,58 +1,48 @@
 import React from "react";
-import { useNavigate } from "react-router";
-import { userLogout } from "../api/helpers";
-import useAuth from "../hooks/useAuth";
+
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
-	const nav = useNavigate();
-	const { token, setToken, user, setUser } = useAuth();
+	async function handleLogout() {
+		await fetch("/api/auth/logout");
+	}
 	return (
 		<div className="navbar">
 			<h1>Strangers Thing's</h1>
 			<ul className="navlinks">
 				<li>
-					<button className="link" onClick={() => nav("/")}>
-						Home
-					</button>
+					<Link to="/">
+						<button className="link">Home</button>
+					</Link>
 				</li>
 				<li>
-					<button className="link" onClick={() => nav("/")}></button>
+					<Link to="/Activities">
+						<button className="link">Activities</button>
+					</Link>
 				</li>
 				<li>
-					<button className="link" onClick={() => nav("/Activties")}>
-						Activities
-					</button>
-					<li>
-						<button className="link" onClick={() => nav("/Routines")}>
-							Routines
-						</button>
-					</li>
-				</li>
-				<li>
-					<button className="link" onClick={() => nav("/Login")}>
-						Login
-					</button>
+					<Link to="/Routines">
+						<button className="link">Routines</button>
+					</Link>
 				</li>
 
 				<li>
-					<button className="link" onClick={() => nav("/Register")}>
-						Register
-					</button>
+					<Link to="/Login">
+						<button className="link">Login</button>
+					</Link>
+				</li>
+
+				<li>
+					<Link to="/Register">
+						<button className="link">Register</button>
+					</Link>
 				</li>
 				<li>
-					<button
-						className="link"
-						onClick={async () => (
-							await userLogout(token, user),
-							setUser(""),
-							setToken(null),
-							localStorage.clear,
-							nav("/Login"),
-							console.log(user)
-						)}
-					>
-						Log Out
-					</button>
+					<Link to="/">
+						<button className="link" onClick={handleLogout}>
+							Logout
+						</button>
+					</Link>
 				</li>
 			</ul>
 		</div>

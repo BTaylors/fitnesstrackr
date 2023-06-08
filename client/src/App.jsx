@@ -9,16 +9,15 @@ import Register from "./components/auth/Register";
 import useAuth from "./hooks/useAuth";
 import AllRoutines from "./components/Routines";
 import AllActivities from "./components/Activities";
-
+// import MyRoutines from "./components/MyRoutines";
 function App() {
-	const { token, user } = useAuth();
 	return (
 		<div className="App">
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/Routines" element={<AllRoutines />} />
-				<Route path="/MyRoutines" element={<MyRoutines />} />
+				{/* <Route path="/MyRoutines" element={<MyRoutines />} /> */}
 				<Route path="/Activities" element={<AllActivities />} />
 				<Route path="/Login" element={<Login />} />
 				<Route path="/Register" element={<Register />} />
