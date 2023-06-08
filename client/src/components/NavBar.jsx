@@ -15,19 +15,19 @@ export default function Navbar() {
 						Home
 					</button>
 				</li>
-				{/* {token && (
+				<li>
+					<button className="link" onClick={() => nav("/")}></button>
+				</li>
+				<li>
+					<button className="link" onClick={() => nav("/Activties")}>
+						Activities
+					</button>
 					<li>
-						<button className="link" onClick={() => nav("/")}>
-							Profile
+						<button className="link" onClick={() => nav("/Routines")}>
+							Routines
 						</button>
 					</li>
-				)}
-				<li>
-					<button className="link" onClick={() => nav("/")}>
-						
-					</button>
-				</li> */}
-
+				</li>
 				<li>
 					<button className="link" onClick={() => nav("/Login")}>
 						Login

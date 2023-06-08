@@ -1,30 +1,25 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
-import { getToken } from "../../api/helpers";
+import { fetchMe } from "../../api/helpers";
 
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
-	const [token, setToken] = useState(localStorage.getItem("token"));
 	const [user, setUser] = useState("");
-	const [id, setId] = useState("");
+	const [loggedIn, setloggedIn] = useState("");
 	useEffect(() => {
 		async function getMe() {
-			const apiResponse = await getToken(token);
-			setUser(apiResponse.data);
-			setId(apiResponse.data._id);
+			const apiResponse = await fetchMe();
+			setUser(apiResponse);
+			setloggedIn(true);
 		}
-		if (token) {
-			getMe();
-		}
-	}, [token]);
+		getMe();
+	}, [loggedIn]);
 	const contextValue = {
-		token,
-		setToken,
 		user,
 		setUser,
-		id,
-		setId,
+		loggedIn,
+		setloggedIn,
 	};
 	return (
 		<AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

@@ -7,6 +7,8 @@ import Home from "./components/Home";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import useAuth from "./hooks/useAuth";
+import AllRoutines from "./components/Routines";
+import AllActivities from "./components/Activities";
 
 function App() {
 	const { token, user } = useAuth();
@@ -15,8 +17,9 @@ function App() {
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/Profile" element={<Profile />} />
-				<Route path="/CreatePost" element={<CreatePost />} />
+				<Route path="/Routines" element={<AllRoutines />} />
+				<Route path="/MyRoutines" element={<MyRoutines />} />
+				<Route path="/Activities" element={<AllActivities />} />
 				<Route path="/Login" element={<Login />} />
 				<Route path="/Register" element={<Register />} />
 			</Routes>

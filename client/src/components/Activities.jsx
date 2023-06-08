@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import { getActivities } from "../api/helpers";
 import "../App.css";
 import { useNavigate } from "react-router";
-import useAuth from "../hooks/useAuth";
 
 export default function AllActivities() {
 	const nav = useNavigate();
 	const [Activities, setActivities] = useState([]);
-	const { id, user } = useAuth();
+	const { loggedIn, isloggedIn } = useAuth();
 	useEffect(() => {
 		async function getAllActivities() {
 			try {
@@ -22,7 +21,7 @@ export default function AllActivities() {
 	}, []);
 
 	return (
-		<div className="allActivities">
+		<div>
 			{Activities.map((post) => {
 				return (
 					<div key={post._id}>
