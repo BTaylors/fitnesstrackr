@@ -10,7 +10,7 @@ export default function Home() {
 			<h1 className="home-header" style={{ textDecoration: "underline" }}>
 				All Activities
 			</h1>
-			<Activities />
+			<AllActivities />
 		</div>
 	);
 }
