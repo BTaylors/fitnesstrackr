@@ -36,7 +36,7 @@ export async function registerUser(username, password) {
 
 export const userLogin = async (username, password) => {
 	try {
-		const response = await fetch(`api/users/login`, {
+		const response = await fetch(`api/users/Login`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -57,7 +57,7 @@ export const userLogin = async (username, password) => {
 };
 export const userLogout = async (token) => {
 	try {
-		const response = await fetch(`api/Login`, {
+		const response = await fetch(`api/auth/logout`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -105,13 +105,12 @@ export default async function getRoutines() {
 	}
 	getRoutines();
 }
-export const deletePost = async (token, id) => {
+export const deletePost = async () => {
 	try {
-		const response = await fetch(`api/posts/${id}`, {
+		const response = await fetch(`api/posts/`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`,
 			},
 		});
 		const result = await response.json();
