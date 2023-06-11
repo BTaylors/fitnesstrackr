@@ -1,80 +1,66 @@
-export const fetchMe = async () => {
-	try {
-		const response = await fetch(`api/users/me`, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		const result = await response.json();
-		return result;
-	} catch (error) {
-		console.error(error);
+export async function fetchMe() {
+	const response = await fetch("/api/users/me");
+	const { success, message, user } = await response.json();
+	if (!success) {
+		throw {
+			message,
+		};
 	}
-};
-
-export async function registerUser(username, password) {
-	try {
-		const response = await fetch(`api/users/register`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				user: {
-					username,
-					password,
-				},
-			}),
-		});
-		const result = await response.json();
-		console.log("Result from register user: ", result);
-		return result;
-	} catch (error) {
-		console.error(error);
-	}
+	return { success, message, user };
 }
 
-export const userLogin = async (username, password) => {
-	try {
-		const response = await fetch(`api/users/Login`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				user: {
-					username,
-					password,
-				},
-			}),
-		});
-		const result = await response.json();
-		console.log(result);
-		return result;
-	} catch (error) {
-		console.error(error);
+export async function registerUser(username, password) {
+	const response = await fetch("api/users/register", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			username,
+			password,
+		}),
+	});
+	const { success, message, data } = await response.json();
+	console.log("hi");
+	console.log("response.json:", response.json);
+	if (!success) {
+		throw {
+			message,
+		};
 	}
-};
-export const userLogout = async (token) => {
-	try {
-		const response = await fetch(`api/auth/logout`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				user: {
-					token,
-				},
-			}),
-		});
-		const result = await response.json();
-		console.log(result);
-		return result;
-	} catch (err) {
-		console.error(err);
+	return { success, message, data };
+}
+
+export async function userLogin(username, password) {
+	const response = await fetch("/api/users/login", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			username,
+			password,
+		}),
+	});
+	const { success, message, data } = await response.json();
+	if (!success) {
+		throw {
+			message,
+		};
 	}
-};
+	return { success, message, data };
+}
+
+export async function logout() {
+	const response = await fetch("/api/users/logout");
+	const { success, message, data } = await response.json();
+	if (!success) {
+		throw {
+			message,
+		};
+	}
+	return { success, message, data };
+}
 
 export const getActivities = async () => {
 	try {

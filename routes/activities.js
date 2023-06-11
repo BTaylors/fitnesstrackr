@@ -1,7 +1,11 @@
 const activitiesRouter = require("express").Router();
-const { getAllActivities } = require("../db/adapters/activities");
+const {
+	getAllActivities,
+	createActivity,
+} = require("../db/adapters/activities");
 const { getPublicRoutinesByActivity } = require("../db/adapters/routines");
 const { authRequired } = require("./utils");
+
 activitiesRouter.get("/", async (req, res, next) => {
 	try {
 		const activities = await getAllActivities();
@@ -11,26 +15,43 @@ activitiesRouter.get("/", async (req, res, next) => {
 	}
 });
 
-activitiesRouter.get("/:activityId/routines/", async (req, res, next) => {
+activitiesRouter.post("/", authRequired, async (req, res, next) => {
 	try {
-		const { activityId } = req.params;
-		const publicRoutines = await getPublicRoutinesByActivity(activityId);
-		console.log("public routines:", publicRoutines);
-		res.send({
-			status_message: "getting public routines by activity",
-			data: publicRoutines,
-		});
+		const { name, description } = req.body;
+		const newActivity = await createActivity({ name, description });
+		res.send(newActivity);
 	} catch (error) {
 		next(error);
 	}
 });
 
-activitiesRouter.post("/create-activity", authRequired, (req, res, next) => {
+activitiesRouter.get("/:activityId/routines", async (req, res, next) => {
 	try {
-		const { name, description } = req.body;
+		const { activityId } = req.params.activityId;
+		const publicRoutineswithActivity = await getPublicRoutinesByActivity(
+			activityId
+		);
+		res.send(publicRoutineswithActivity);
 	} catch (error) {
 		next(error);
 	}
 });
+
+// activitiesRouter.patch("/:activityId", authRequired, async (req, res, next) => {
+// 	try {
+// 		const { activityId } = req.params;
+// 		const { name, description } = req.body;
+// 		const updatedActivity = await updateActivity(
+// 			activityId,
+// 			name,
+// 			description,
+// 			req.user.id
+// 		);
+
+// 		res.send(updatedActivity);
+// 	} catch (error) {
+// 		next({ message: "invalid user credentials" });
+// 	}
+// });
 
 module.exports = activitiesRouter;

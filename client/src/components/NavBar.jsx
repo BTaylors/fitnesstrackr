@@ -1,10 +1,17 @@
 import React from "react";
-
+import { logout } from "../api/helpers";
+import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
+	const { setLoggedIn, loggedIn } = useAuth();
+	const { token, user } = useAuth();
+	console.log("token in app.jsx:", token);
+	console.log("User in app.jsx:", user);
+
 	async function handleLogout() {
-		await fetch("/api/auth/logout");
+		await logout();
+		setLoggedIn(!loggedIn);
 	}
 	return (
 		<div className="navbar">
