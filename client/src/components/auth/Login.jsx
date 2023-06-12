@@ -20,8 +20,8 @@ export default function Login() {
 	return (
 		<div className="login">
 			<form onSubmit={handleSubmit}>
-				<div className="login-form">
-					<p className="registerp">Login</p>
+				<div className="form">
+					<p>Login</p>
 					<br></br>
 					<input
 						type="text"

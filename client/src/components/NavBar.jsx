@@ -34,6 +34,12 @@ export default function Navbar() {
 				</li>
 
 				<li>
+					<Link to="/createActivity">
+						<button className="link">Create Activity</button>
+					</Link>
+				</li>
+
+				<li>
 					<Link to="/Login">
 						<button className="link">Login</button>
 					</Link>

@@ -123,6 +123,25 @@ export async function getUserRoutines(username) {
 	}
 }
 
+export async function createActivity(name, description) {
+	try {
+		const response = await fetch("/api/activities/", {
+			method: "POST",
+			body: JSON.stringify({
+				name,
+				description,
+			}),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		const result = await response.json();
+		return result;
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 export async function checkAPIHealth() {
 	try {
 		const response = await fetch("/api/health");
