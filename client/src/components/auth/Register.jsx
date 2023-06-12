@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { registerUser } from "../../api/helpers";
-import useAuth from "../hooks/useAuth";
 
 export default function Register() {
 	const [username, setUsername] = useState("");
@@ -32,7 +31,7 @@ export default function Register() {
 	return (
 		<div id="register">
 			<form id="registerForm" onSubmit={handleSubmit}>
-				<div className="registerForm">
+				<div className="form">
 					<p className="register">Register an account!</p>
 					<br />
 					<input
