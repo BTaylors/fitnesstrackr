@@ -2,7 +2,7 @@ import React from "react";
 import { logout } from "../api/helpers";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
-
+import "../App.css";
 export default function Navbar() {
 	const { setLoggedIn, loggedIn } = useAuth();
 	const { token, user } = useAuth();
