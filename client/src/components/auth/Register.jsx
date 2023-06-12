@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import { registerUser } from "../../api/helpers";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
 export default function Register() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-
-	const { setToken, user } = useAuth();
 	console.log("User from RegisterForm: ", user);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			const result = await registerUser(username, password);
-			console.log("Result in component: ", result);
-			setToken(result.data.token);
-			localStorage.setItem("token", result.data.token);
+			let result;
+			if (pathname === "/register") {
+				result = await registerUser(username, password);
+			} else {
+				result = await loginUser(username, password);
+				alert("you're logged in");
+			}
+			console.log("Result after login or register: ", result);
+			if (result.success) {
+				setLoggedIn(true);
+				alert("you're registered!");
+				console.log("Auth Results", result);
+				navigate("/");
+			}
 		} catch (error) {
-			console.error(error);
+			setError(error.message);
 		}
 	}
 
