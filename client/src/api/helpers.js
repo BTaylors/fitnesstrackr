@@ -108,6 +108,21 @@ export const deletePost = async () => {
 	}
 };
 
+export async function getUserRoutines(username) {
+	try {
+		const response = await fetch(`/api/users/${username}/routines`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		const result = await response.json();
+		return result;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 export async function checkAPIHealth() {
 	try {
 		const response = await fetch("/api/health");
