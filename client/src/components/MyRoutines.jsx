@@ -19,15 +19,15 @@ function ProfileComponent() {
 	}, [user]);
 	return (
 		<>
-			<div className="profilePage">
+			<div>
 				<h1> Welcome to your Profile {user.username}</h1>
 				<h2> my routines</h2>
-				<div className="myroutines">
+				<div>
 					{myRoutines.map((routine, idx) => {
 						return (
 							<>
-								<div className="routine">
-									<div key={idx} className="routinecard">
+								<div>
+									<div key={idx}>
 										<p>{routine.name}</p>
 										<p>{routine.goal}</p>
 									</div>
